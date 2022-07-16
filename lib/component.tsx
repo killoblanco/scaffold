@@ -1,10 +1,16 @@
-import { PropsWithChildren } from 'react'
+import { PropsWithChildren, ReactElement } from 'react'
+import { DrawerProvider } from './ctx/drawer/provider'
 
-export function Scaffold ({ children }: PropsWithChildren) {
-  return (
-    <div>
-      <h3>scaffold</h3>
-      {children}
-    </div>
-  )
+export interface ScaffoldProps {
+  topbar?: ReactElement
 }
+
+export const Scaffold = ({
+  children,
+  topbar
+}: PropsWithChildren<ScaffoldProps>) => (
+  <DrawerProvider>
+    {topbar}
+    {children}
+  </DrawerProvider>
+)
