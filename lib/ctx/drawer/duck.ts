@@ -15,7 +15,7 @@ export const drawerReducer = (state: DrawerProps, action: Action<DrawerProps>) =
     case drawerActionTypes.open:
       return { ...state, ...action.payload, open: true }
     case drawerActionTypes.close:
-      return { ...state, open: false }
+      return { ...drawerState, open: false }
     default:
       return state
   }
