@@ -16,7 +16,7 @@
     }
   },
   "scripts": {
-    "dev": "vite",
+    "dev": "npm run ladle",
     "build": "tsc && vite build",
     "lint": "eslint src",
     "lint:fix": "npm run lint -- --fix",
