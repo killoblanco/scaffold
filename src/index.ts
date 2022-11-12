@@ -1,1 +1,1 @@
-export { Greetings } from './greetings'
+export { Scaffold } from './scaffold'
