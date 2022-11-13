@@ -3,7 +3,7 @@ name: Handle Release Rules
   push:
     branches:
       - main
-      - push
+      - dev
 
 jobs:
   run_lint:
