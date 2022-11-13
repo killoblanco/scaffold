@@ -29,6 +29,7 @@ jobs:
         with:
           node-version: 16
           cache: 'npm'
+      - run: npm i
       - run: npm run test
 
   run_build:
@@ -43,5 +44,6 @@ jobs:
         with:
           node-version: 16
           cache: 'npm'
+      - run: npm i
       - run: npm run build
 
