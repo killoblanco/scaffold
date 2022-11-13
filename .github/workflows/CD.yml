@@ -23,7 +23,7 @@ jobs:
           minor-wording: 'feat,Feat,new,New,Minor,minor'
           major-wording: 'Rel,rel,Major,major'
           skip-tag: 'true'
-          commit-message: '🤖: Package version to {{version}} [skip ci]'
+          commit-message: '🤖: Package version to {{version}}'
 
   commit_release:
     if: '${{ github.event.pull_request.head.repo.full_name == github.repository }}'
@@ -41,7 +41,7 @@ jobs:
       - run: npm run build
       - uses: stefanzweifel/git-auto-commit-action@v4
         with:
-          commit_message: '🤖: New build [skip ci]'
+          commit_message: '🤖: New build'
           commit_user_name: 'kevin[bot]'
 
 
