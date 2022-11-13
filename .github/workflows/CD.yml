@@ -1,0 +1,47 @@
+name: Handle Release Rules
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  run_ci:
+    uses: kevolution-group/scaffold/.github/workflows/CI.yml@main
+
+  bump_version:
+    if: '${{ github.event.pull_request.head.repo.full_name == github.repository }}'
+    runs-on: ubuntu-latest
+    environment: production
+    needs: run_ci
+    name: 'Bump Package Version'
+    steps:
+      - uses: actions/checkout@v3
+      - uses: phips28/gh-action-bump-version@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          minor-wording: 'feat,Feat,new,New,Minor,minor'
+          major-wording: 'Rel,rel,Major,major'
+          skip-tag: 'true'
+          commit-message: '🤖: Package version to {{version}} [skip ci]'
+
+  commit_release:
+    if: '${{ github.event.pull_request.head.repo.full_name == github.repository }}'
+    runs-on: ubuntu-latest
+    environment: production
+    needs: [run_ci, bump_version]
+    name: 'Commit Release Bots Actions'
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: 'npm'
+      - run: npm i
+      - run: npm run build
+      - uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: '🤖: New build [skip ci]'
+          commit_user_name: 'kevin[bot]'
+
+
