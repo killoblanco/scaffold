@@ -3,7 +3,7 @@ import { createElement } from 'react'
 import { useDialogsCtrls } from './controll'
 
 export const Dialogs = (): JSX.Element | null => {
-  const { state: { list, items }, active, close } = useDialogsCtrls()
+  const { state: { list, items, active }, close } = useDialogsCtrls()
 
   if (list.length === 0) return null
 
