@@ -29,5 +29,11 @@ describe('Scaffold Component', () => {
       expect(result.current.dialogs.open).toBeDefined()
       expect(result.current.dialogs.close).toBeDefined()
     })
+
+    it('Should have drawers with open and close fns', () => {
+      expect(result.current.drawers).toBeDefined()
+      expect(result.current.drawers.open).toBeDefined()
+      expect(result.current.drawers.close).toBeDefined()
+    })
   })
 })
