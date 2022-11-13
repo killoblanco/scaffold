@@ -1,9 +1,6 @@
 name: Handle Release Rules
 'on':
   pull_request
-  workflow_call:
-    inputs:
-    secrets:
 
 jobs:
   run_lint:
