@@ -1,4 +1,9 @@
-import { atom, selector } from "recoil";
+import { atom } from "recoil";
+
+export const mockActiveAtom = atom<string | null>({
+  key: 'mockActiveAtom',
+  default: null,
+});
 
 export const mockListAtom = atom<string[]>({
   key: 'mockListAtom',
