@@ -5,7 +5,6 @@ on:
 
 jobs:
   run_lint:
-    if: '${{ github.event.pull_request.head.repo.full_name == github.repository }}'
     runs-on: ubuntu-latest
     environment: production
     name: 'Run Code Linters'
@@ -19,7 +18,6 @@ jobs:
       - run: npm run lint
 
   run_tests:
-    if: '${{ github.event.pull_request.head.repo.full_name == github.repository }}'
     needs: run_lint
     runs-on: ubuntu-latest
     environment: production
@@ -34,7 +32,6 @@ jobs:
       - run: npm run test
 
   run_build:
-    if: '${{ github.event.pull_request.head.repo.full_name == github.repository }}'
     needs: [run_lint, run_tests]
     runs-on: ubuntu-latest
     environment: production
@@ -47,4 +44,3 @@ jobs:
           cache: 'npm'
       - run: npm i
       - run: npm run build
-

@@ -10,7 +10,7 @@ jobs:
     uses: ./.github/workflows/CI.yml
 
   bump_version:
-    if: '${{ github.event.push.head.repo.full_name == github.repository }} && needs.run_ci.result == "success"'
+    if: 'needs.run_ci.result == "success"'
     runs-on: ubuntu-latest
     environment: production
     needs: run_ci
@@ -24,10 +24,9 @@ jobs:
           minor-wording: 'feat,Feat,new,New,Minor,minor'
           major-wording: 'Rel,rel,Major,major'
           skip-tag: 'true'
-          commit-message: '🤖: Package version to {{version}}'
+          commit-message: '🤖: Package version to {{version}} [skip ci]'
 
   commit_release:
-    if: '${{ github.event.push.head.repo.full_name == github.repository }}'
     runs-on: ubuntu-latest
     environment: production
     needs: [run_ci, bump_version]
@@ -42,7 +41,7 @@ jobs:
       - run: npm run build
       - uses: stefanzweifel/git-auto-commit-action@v4
         with:
-          commit_message: '🤖: New build'
+          commit_message: '🤖: New build [skip ci]'
           commit_user_name: 'kevin[bot]'
 
 
