@@ -6,8 +6,7 @@ on:
 
 jobs:
   run_ci:
-    if: '${{ github.event.pull_request.head.repo.full_name == github.repository }}'
-    uses: kevolution-group/scaffold/.github/workflows/CI.yml@main
+    uses: ./CI.yml
 
   bump_version:
     if: '${{ github.event.pull_request.head.repo.full_name == github.repository }}'
