@@ -1,0 +1,30 @@
+name: Handle Release Rules
+'on': pull_request
+
+jobs:
+  run_code_lint:
+    if: '${{ github.event.pull_request.head.repo.full_name == github.repository }}'
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: 'npm'
+      - run: npm i
+      - run: npm run lint
+  run_code_tests:
+    if: '${{ github.event.pull_request.head.repo.full_name == github.repository }}'
+    needs: run_code_lint
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: 'npm'
+      - run: npm i
+      - run: npm run lint
+
