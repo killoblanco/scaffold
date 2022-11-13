@@ -1,9 +1,13 @@
-import { PropsWithChildren } from "react";
+import { PropsWithChildren } from 'react'
+import { Dialogs } from '../dialogs'
 
-export const Scaffold = ({ children }: PropsWithChildren) => {
+export { useScaffold } from './hook'
+
+export const Scaffold = ({ children }: PropsWithChildren): JSX.Element => {
   return (
     <>
       {children}
+      <Dialogs />
     </>
   )
 }
