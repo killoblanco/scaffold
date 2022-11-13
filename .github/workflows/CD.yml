@@ -6,7 +6,7 @@ on:
 
 jobs:
   run_ci:
-    uses: ./CI.yml@main
+    uses: .github/workflows/CI.yml@main
 
   bump_version:
     if: '${{ github.event.pull_request.head.repo.full_name == github.repository }}'
