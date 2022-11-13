@@ -21,11 +21,24 @@ export default defineConfig({
       fileName: 'scaffold'
     },
     rollupOptions: {
-      external: ['react', 'react-dom'],
+      external: [
+        '@emotion/react',
+        '@emotion/styled',
+        '@mui/material',
+        'nanoid',
+        'react',
+        'react-dom',
+        'recoil'
+      ],
       output: {
         globals: {
+          '@emotion/react': 'emotionReact',
+          '@emotion/styled': 'styled',
+          '@mui/material': 'MaterialUI',
+          nanoid: 'nanoid',
           react: 'React',
-          'react-dom': 'ReactDOM'
+          'react-dom': 'ReactDOM',
+          recoil: 'Recoil'
         }
       }
     }
