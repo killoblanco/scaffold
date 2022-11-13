@@ -2,7 +2,7 @@ import { renderHook } from '@testing-library/react'
 import { RecoilRoot } from 'recoil'
 import { describe, expect, it } from 'vitest'
 import { useBuildState } from './index'
-import { mockItemsAtom, mockListAtom } from '../../mooks/selector'
+import { mockItemsAtom, mockListAtom } from '../../__mocks__/selector'
 
 describe('useBuildState Hook', () => {
   const component = (): JSX.Element => <div>Test</div>
