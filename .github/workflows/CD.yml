@@ -3,13 +3,13 @@ on:
   push:
     branches:
       - main
+      - dev
 
 jobs:
   run_ci:
     uses: ./.github/workflows/CI.yml
 
   bump_version:
-    if: 'needs.run_ci.result == success'
     runs-on: ubuntu-latest
     environment: production
     needs: run_ci
@@ -42,5 +42,3 @@ jobs:
         with:
           commit_message: '🤖: New build [skip ci]'
           commit_user_name: 'kevin[bot]'
-
-
