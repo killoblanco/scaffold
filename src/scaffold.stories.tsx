@@ -1,19 +1,9 @@
-import { Paper, Typography } from '@mui/material'
 import Button from '@mui/material/Button'
 import Stack from '@mui/material/Stack'
-import { FunctionComponent } from 'react'
 import { RecoilRoot } from 'recoil'
+import { MockComponent, MockProps } from '../__mocks__/component'
 import { useDialogsCtrls } from './dialogs/controll'
 import { Scaffold } from './scaffold'
-
-type MockProps = { title: string }
-const MockComponent: FunctionComponent<MockProps> = ({ title }) => (
-  <Paper sx={{ p: 2 }}>
-    <Typography variant="h5">
-      {title}
-    </Typography>
-  </Paper>
-)
 export const RenderChildren = (): JSX.Element => (
   <RecoilRoot>
     <Scaffold>
