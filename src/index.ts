@@ -1,1 +1,1 @@
-export { Scaffold } from './scaffold'
+export { Scaffold, useScaffold } from './scaffold'
