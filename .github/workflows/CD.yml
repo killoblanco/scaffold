@@ -5,14 +5,55 @@ on:
       - main
 
 jobs:
-  run_ci:
-    uses: kevolution-group/scaffold/.github/workflows/CI.yml@main
+  run_lint:
+    if: '${{ github.event.pull_request.head.repo.full_name == github.repository }}'
+    runs-on: ubuntu-latest
+    environment: production
+    name: 'Run Code Linters'
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: 'npm'
+      - run: npm i
+      - run: npm run lint
+
+  run_tests:
+    if: '${{ github.event.pull_request.head.repo.full_name == github.repository }}'
+    needs: run_lint
+    runs-on: ubuntu-latest
+    environment: production
+    name: 'Run Code Tests'
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: 'npm'
+      - run: npm i
+      - run: npm run test
+
+  run_build:
+    if: '${{ github.event.pull_request.head.repo.full_name == github.repository }}'
+    needs: [run_lint, run_tests]
+    runs-on: ubuntu-latest
+    environment: production
+    name: 'Run Code Build'
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: 'npm'
+      - run: npm i
+      - run: npm run build
 
   bump_version:
     if: '${{ github.event.pull_request.head.repo.full_name == github.repository }}'
     runs-on: ubuntu-latest
     environment: production
-    needs: run_ci
+    needs: [run_lint, run_tests, run_build]
     name: 'Bump Package Version'
     steps:
       - uses: actions/checkout@v3
@@ -23,13 +64,13 @@ jobs:
           minor-wording: 'feat,Feat,new,New,Minor,minor'
           major-wording: 'Rel,rel,Major,major'
           skip-tag: 'true'
-          commit-message: '🤖: Package version to {{version}} [skip ci]'
+          commit-message: '🤖: Package version to {{version}}'
 
   commit_release:
     if: '${{ github.event.pull_request.head.repo.full_name == github.repository }}'
     runs-on: ubuntu-latest
     environment: production
-    needs: [run_ci, bump_version]
+    needs: [run_lint, run_tests, run_build, bump_version]
     name: 'Commit Release Bots Actions'
     steps:
       - uses: actions/checkout@v3
@@ -41,7 +82,7 @@ jobs:
       - run: npm run build
       - uses: stefanzweifel/git-auto-commit-action@v4
         with:
-          commit_message: '🤖: New build [skip ci]'
+          commit_message: '🤖: New build'
           commit_user_name: 'kevin[bot]'
 
 
