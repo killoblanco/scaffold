@@ -23,8 +23,7 @@ jobs:
           minor-wording: 'feat,Feat,new,New,Minor,minor'
           major-wording: 'Rel,rel,Major,major'
           skip-tag: 'true'
-          skip-commit: 'true'
-          skip-push: 'true'
+          commit-message: '🤖: Package version to {{version}} [skip ci]'
 
   commit_release:
     if: '${{ github.event.pull_request.head.repo.full_name == github.repository }}'
@@ -34,9 +33,15 @@ jobs:
     name: 'Commit Release Bots Actions'
     steps:
       - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: 'npm'
+      - run: npm i
+      - run: npm run build
       - uses: stefanzweifel/git-auto-commit-action@v4
         with:
-          commit_message: '🤖 Automated CI & CD Actions'
+          commit_message: '🤖: New build [skip ci]'
           commit_user_name: 'kevin[bot]'
 
 
