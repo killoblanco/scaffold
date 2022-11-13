@@ -1,5 +1,5 @@
 import { FunctionComponent } from 'react'
-import { DialogProps } from '@mui/material'
+import { DialogProps, DrawerProps } from '@mui/material'
 
 export interface StateItem<T, P> {
   component: FunctionComponent<any>
@@ -8,6 +8,7 @@ export interface StateItem<T, P> {
 }
 
 export interface BaseState<T, P> {
+  active: string | null
   list: string[]
   items: Record<string, StateItem<T, P>>
 }
@@ -20,16 +21,22 @@ export type OpenFn<T, P> = (
 
 export type CloseFn = (id: string) => void
 
-export interface UseDialogsCtrlsReturn<P> {
-  state: BaseState<DialogProps, P>
-  active: string | null
-  open: OpenFn<DialogProps, P>
+export interface UseBuildStateReturn<T, P> {
+  state: BaseState<T, P>
+  open: OpenFn<T, P>
   close: CloseFn
 }
+
+export type UseDialogsCtrlsReturn<P> = UseBuildStateReturn<DialogProps, P>
+export type UseDrawersCtrlsReturn<P> = UseBuildStateReturn<DrawerProps, P>
 
 export interface UseScaffoldReturn {
   dialogs: {
     open: UseDialogsCtrlsReturn<P>['open']
     close: UseDialogsCtrlsReturn<P>['close']
+  }
+  drawers: {
+    open: UseDrawersCtrlsReturn<P>['open']
+    close: UseDrawersCtrlsReturn<P>['close']
   }
 }

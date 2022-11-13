@@ -1,23 +1,23 @@
-import Dialog from '@mui/material/Dialog'
+import Drawer from '@mui/material/Drawer'
 import { createElement } from 'react'
-import { useDialogsCtrls } from './controll'
+import { useDrawersCtrls } from './controll'
 
-export const Dialogs = (): JSX.Element | null => {
-  const { state: { list, items, active }, close } = useDialogsCtrls()
+export const Drawers = (): JSX.Element | null => {
+  const { state: { list, items, active }, close } = useDrawersCtrls()
 
   if (list.length === 0) return null
 
   return (
     <>
       {list.map((id) => (
-        <Dialog
+        <Drawer
           key={id}
           {...(items[id].typeProps ?? {})}
           open={active === id}
           onClose={() => close(id)}
         >
           {createElement(items[id].component, { ...(items[id].props ?? {}), dialogId: id })}
-        </Dialog>
+        </Drawer>
       ))}
     </>
   )
