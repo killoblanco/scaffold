@@ -9,7 +9,7 @@ jobs:
     uses: ./.github/workflows/CI.yml
 
   bump_version:
-    if: 'needs.run_ci.result == "success"'
+    if: 'needs.run_ci.result == success'
     runs-on: ubuntu-latest
     environment: production
     needs: run_ci
