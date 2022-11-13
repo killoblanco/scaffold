@@ -13,7 +13,7 @@ const listAtom = atom<string[]>({
   default: []
 })
 
-const itemsAtom = atom<Record<string, StateItem<DialogProps, P>>>({
+const itemsAtom = atom<Record<string, StateItem<DialogProps, any>>>({
   key: 'scaffoldDialogsItems',
   default: {}
 })
