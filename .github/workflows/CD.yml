@@ -1,8 +1,9 @@
 name: Handle Release Rules
-on:
+'on':
   push:
     branches:
       - main
+      - push
 
 jobs:
   run_lint:
